@@ -24,6 +24,11 @@ public class QuestionValues {
 
         private int numberOfGreen;
 
+        /**
+         * Gets user inputs for the game values.
+         * 
+         * @return the {@link Builder} object for a {@link QuestionValues}.
+         */
         public Builder getInputs(){
 
             this.numberOfRed = InputUtil.getValueInputs("Enter number of red:");
@@ -39,6 +44,5 @@ public class QuestionValues {
             return new QuestionValues(numberOfRed, numberOfBlue, numberOfGreen);
 
         }
-
     }
 }

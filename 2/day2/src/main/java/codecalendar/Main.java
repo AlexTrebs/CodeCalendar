@@ -13,8 +13,7 @@ public class Main {
     private static String ANSWER_LOG = "The answer is: {}";
 
     public static void main(String[] args) {
-        String challengeInput = InputUtil.getInput("What challenge do you want to complete: ");
-        switch(challengeInput) {
+        switch(args[0]) {
             case "1":
                 FirstChallengeService firstChallengeService = new FirstChallengeService();
                 log.info(ANSWER_LOG, firstChallengeService.findAnswer());
@@ -27,11 +26,14 @@ public class Main {
             default:
                 break;
         }
+        
         switch(InputUtil.getInput("Would you like to go again(y/n): ")) {
             case "y":
                 main(args);
                 break;
             case "n":
+                System.exit(0);
+            default:
                 System.exit(0);
         }
     }

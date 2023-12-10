@@ -14,9 +14,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class InputUtil {
-    public static List<String> getFileFromResources(String fileString){
-        log.info("Opening file: {}", fileString);
-        URL url = Thread.currentThread().getContextClassLoader().getResource(fileString);
+
+    /**
+     * Give a fileName, return a {@link List} of each of the lines in the file.
+     * 
+     * @param fileName a {@link String} of the file's name
+     * @return a {@link List} of each of the lines in the file.
+     */
+    public static List<String> getFileFromResources(String fileName){
+        log.info("Opening file: {}", fileName);
+        URL url = Thread.currentThread().getContextClassLoader().getResource(fileName);
         if(url == null){
 
             log.error("File could not be found. Exiting app");
@@ -37,8 +44,13 @@ public class InputUtil {
         }
     }
 
+    /**
+     * Get the user input for a given output.
+     * 
+     * @param output the output that is displayed to user before input is recieved.
+     * @return a {@link String} of the user input.
+     */
     public static String getInput(String output){
-
         Scanner scannerObj = new Scanner(System.in);
 
         String input = "";
@@ -46,22 +58,26 @@ public class InputUtil {
         try {
             input = JOptionPane.showInputDialog(output);
         } catch (Exception e) {
-            log.warn("Inputs not found. {}", e);
+            log.warn("Inputs not found.");
+            scannerObj.close();
+            return getInput(output);
         }
         scannerObj.close();
         return input;
-
     }
 
+    /**
+     * Gets the user input string and converts it to a {@link Integer}.
+     * 
+     * @param output the output that is displayed to user before input is recieved.
+     * @return the number that the user inputted.
+     */
     public static int getValueInputs(String output){
-        int input = 0;
-
         try {
-            input = Integer.valueOf(getValueInputs(output));
+            return Integer.valueOf(getInput(output));
         } catch (Exception e) {
-            log.warn("Inputs at incorrect value. {}", e);
+            log.warn("Inputs incorrect type. Try again.");
+            return getValueInputs(output);
         }
-
-        return input;
     }
 }
